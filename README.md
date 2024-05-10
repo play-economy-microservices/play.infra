@@ -25,3 +25,9 @@ az cosmosdb create --name $dbname --resource-group $appname --kind MongoDB --ena
 $servicebusname="playeconomyservicebus"
 az servicebus namespace create --name $servicebusname --resource-group $appname --sku Standard
 ```
+
+# Creating the Container Registry
+```powershell
+$containername="playeconomycontainerregistry"
+az acr create --name $containername --resource-group $appname --sku Basic 
+```
