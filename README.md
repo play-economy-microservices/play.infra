@@ -31,3 +31,13 @@ az servicebus namespace create --name $servicebusname --resource-group $appname 
 $containername="playeconomycontainerregistry"
 az acr create --name $containername --resource-group $appname --sku Basic 
 ```
+
+# Creating the AKS Cluster
+```powershell
+$appname="playeconomy"
+$containername="playeconomycontainerregistry"
+az aks create -n $appname -g $appname --node-vm-size Standard_B2s --node-count 2
+--attach-acr $containername --enable-oidc-issuer --enable-workload-identity --generate-ssh-keys
+
+az aks get-credentials --name $appname --resource-group $appname
+```
