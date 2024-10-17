@@ -80,3 +80,12 @@ $appname="playeconomy-azure-emissary"
 kubectl apply -f ./emissary-ingress/listener.yaml -n $namespace
 kubectl apply -f ./emissary-ingress/mappings.yaml -n $namespace
 ```
+
+## Installing Cert-Manager
+```powershell
+$namespace="emissary"
+
+helm repo add jetstack https://charts.jetstack.io --force-update
+helm repo update
+helm install cert-manager jetstack/cert-manager --version v1.16.1 --set crds.enabled=true --namespace $namespace
+```
