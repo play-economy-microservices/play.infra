@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: playeconomy-tls-cert
 spec:
-  secretName: playeconomy-tls
+  secretName: playeconomy-tls # the actual keys
   issuerRef:
     name: letsencrypt-pod # refers to this ClusterIssuer
     kind: ClusterIssuer

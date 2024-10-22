@@ -10,3 +10,17 @@ spec:
   hostBinding:
     namespace:
       from: SELF
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: https-listener
+  namespace: emissary  # Change this to match your Emissary namespace
+spec:
+  port: 8443
+  protocol: HTTPS
+  securityModel: XFP # X-Forwarded-Proto: https
+  hostBinding:
+    namespace:
+      from: SELF

@@ -104,3 +104,11 @@ $namespace="emissary"
 
 kubectl apply -f ./emissary-ingress/tls-certificate.yaml -n $namespace
 ```
+
+## Enabling TLS and HTTPS
+This will be used for the gateway to belistened by the outside world.
+```powershell
+$namespace="emissary"
+
+kubectl apply -f ./emissary-ingress/host.yaml -n $namespace
+```
