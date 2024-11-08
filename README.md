@@ -123,6 +123,8 @@ kubectl apply -f ./emissary-ingress/host.yaml -n $namespace
 
 ```powershell
 $appname="playeconomyacr"
+
+# package the helm chart
 helm package ./helm/microservice
 
 $helmUser=[guid]::Empty.Guid
@@ -131,5 +133,9 @@ $helmPassword=az acr login --name $appname --expose-token --output tsv --query a
 # This is no longer needed after Helm v3.8.0
 $env:HELM_EXPERIMENTAL_OCI=1
 
+# authenticate
 helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
+
+# push to registry
+helm push microservice-0.1.0.tgz oci://$appname.azurecr.io/helm
 ```
