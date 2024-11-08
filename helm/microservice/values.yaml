@@ -1,0 +1,22 @@
+# Dictionary of Enviroment Variables
+envVariables:
+  ServiceSettings__MessageBroker: SERVICEBUS
+  ServiceSettings__KeyVaultName: economykeyvault
+
+resources:
+  limits:
+    memory: "128Mi"
+    cpu: "150m"
+
+# Container specifications
+container:
+  liveness:
+    path: /health/live
+    initialDelaySeconds: 10
+  readiness:
+    path: /health/ready
+    initialDelaySeconds: 10
+
+service:
+  type: ClusterIP
+  port: 80
