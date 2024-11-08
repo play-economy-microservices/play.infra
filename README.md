@@ -73,6 +73,7 @@ kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext 
 ```
 
 ## Configure Emissary Ingress Routing
+
 ```powershell
 $namespace="emissary"
 $appname="playeconomy-azure-emissary"
@@ -82,6 +83,7 @@ kubectl apply -f ./emissary-ingress/mappings.yaml -n $namespace
 ```
 
 ## Installing Cert-Manager
+
 ```powershell
 $namespace="emissary"
 
@@ -91,6 +93,7 @@ helm install cert-manager jetstack/cert-manager --version v1.16.1 --set crds.ena
 ```
 
 ## Creating the Cluster Issuer
+
 ```powershell
 $namespace="emissary"
 
@@ -99,6 +102,7 @@ kubectl apply -f ./cert-manager/acme-challenge.yaml -n $namespace
 ```
 
 ## Creating the TLS Certificate
+
 ```powershell
 $namespace="emissary"
 
@@ -106,9 +110,26 @@ kubectl apply -f ./emissary-ingress/tls-certificate.yaml -n $namespace
 ```
 
 ## Enabling TLS and HTTPS
+
 This will be used for the gateway to belistened by the outside world.
+
 ```powershell
 $namespace="emissary"
 
 kubectl apply -f ./emissary-ingress/host.yaml -n $namespace
+```
+
+## Packaging and publishing the microservice Helm Chart
+
+```powershell
+$appname="playeconomyacr"
+helm package ./helm/microservice
+
+$helmUser=[guid]::Empty.Guid
+$helmPassword=az acr login --name $appname --expose-token --output tsv --query accessToken
+
+# This is no longer needed after Helm v3.8.0
+$env:HELM_EXPERIMENTAL_OCI=1
+
+helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
 ```
