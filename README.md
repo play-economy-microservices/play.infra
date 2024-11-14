@@ -139,3 +139,18 @@ helm registry login "$appname.azurecr.io" --username $helmUser --password $helmP
 # push to registry
 helm push microservice-0.1.0.tgz oci://$appname.azurecr.io/helm
 ```
+
+## Create Github service principal
+
+```powershell
+$appname="playeconomy"
+$subId="755900f3-695f-4e79-9b12-1cc2b93e76ae"
+
+$appId = az ad sp create-for-rbac -n "GitHub" --query appId --output tsv
+
+az role assignment create --assignee $appId --role "AcrPush"  --scope /subscriptions/$subid/resourceGroups/$appname/providers/Microsoft.ContainerRegistry/registries/$acrName
+
+az role assignment create --assignee $appId --role "Azure Kubernetes Service Cluster User Role" --scope /subscriptions/$subId/resourceGroups/$appname/providers/Microsoft.ContainerService/managedClusters/$appname
+
+az role assignment create --assignee $appId --role "Azure Kubernetes Service Contributor Role" --scope /subscriptions/$subId/resourceGroups/$appname/providers/Microsoft.ContainerService/managedClusters/$appname
+```
