@@ -22,7 +22,7 @@ spec:
           env: # Env mappings
             {{- range $key, $value := .Values.envVariables }}
             - name: {{ $key }}
-              value: {{ $value }}
+              value: {{ $value | quote }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }} 

@@ -137,7 +137,7 @@ $env:HELM_EXPERIMENTAL_OCI=1
 helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
 
 # push to registry
-helm push microservice-0.1.0.tgz oci://$appname.azurecr.io/helm
+helm push microservice-0.1.1.tgz oci://$appname.azurecr.io/helm
 ```
 
 ## Create Github service principal
