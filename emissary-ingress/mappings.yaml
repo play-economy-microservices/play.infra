@@ -48,3 +48,13 @@ spec:
   hostname: playeconomy-gateway.westus2.cloudapp.azure.com
   prefix: / # the client is the root
   service: frontend-client.frontend
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: seq-mapping
+spec:
+  hostname: playeconomy-gateway.westus2.cloudapp.azure.com
+  prefix: /seq/
+  service: seq.observability

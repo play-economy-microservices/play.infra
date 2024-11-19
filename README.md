@@ -154,3 +154,14 @@ az role assignment create --assignee $appId --role "Azure Kubernetes Service Clu
 
 az role assignment create --assignee $appId --role "Azure Kubernetes Service Contributor Role" --scope /subscriptions/$subId/resourceGroups/$appname/providers/Microsoft.ContainerService/managedClusters/$appname
 ```
+
+## Deploying Seq to AKS
+
+```powershell
+# Add the repository where the chart is stored.
+helm repo add datalust https://helm.datalust.co
+helm repo update
+
+# Installs the seq chart from the datalust repository into your K8s Cluster.
+helm install seq datalust/seq -n observability --create-namespace
+```
