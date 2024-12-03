@@ -344,7 +344,7 @@ $env:HELM_EXPERIMENTAL_OCI=1
 helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
 
 # push to registry
-helm push microservice-0.1.1.tgz oci://$appname.azurecr.io/helm
+helm push microservice-0.1.2.tgz oci://$appname.azurecr.io/helm
 ```
 
 ## Create Github service principal
@@ -371,4 +371,15 @@ helm repo update
 
 # Installs the seq chart from the datalust repository into your K8s Cluster.
 helm install seq datalust/seq -n observability --create-namespace
+```
+
+## Deploy Jaeger to AKS
+
+```powershell
+# Add the repository where the chart is stored.
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+helm repo update
+
+# Installs the Jaeger chart from the datalust repository into your K8s Cluster.
+helm upgrade jaeger jaegertracing/jaeger --values ./jaeger/values.yaml -n observability --install
 ```
