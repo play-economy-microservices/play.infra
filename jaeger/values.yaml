@@ -1,0 +1,17 @@
+allInOne:
+  enabled: true
+  extraEnv:
+    - name: QUERY_BASE_PATH
+      value: /jaeger
+  ingress:
+    enabled: false # we have our own gateway so disabled
+provisionDataStore:
+  cassandra: false
+storage:
+  type: memory
+agent:
+  enabled: false
+collector:
+  enabled: false
+query:
+  enabled: false
